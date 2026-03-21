@@ -4,31 +4,14 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router'
 import Notes from '../components/Notes'
+import useNotes from '../customHooks/useNotes'
 
 const Home = () => {
 
+  const {notes, deleteNotes} = useNotes()
   const navigate = useNavigate()
-  const [notes, setNotes] = useState([])
-
-  useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const res = await axios.get('http://localhost:8000/notes')
-        const notesData = res.data
-
-        setNotes(notesData)
-      } catch (error) {
-        alert(error)
-      }
-
-
-    }
-
-    fetchNotes()
-  }, [])
-
   const updateData = (title, description, id) => {
-    console.log(id)
+    
     navigate(`/notes/update/${id}`, {
       state: {
         title: title,
@@ -39,19 +22,7 @@ const Home = () => {
     })
   }
 
-  const deleteNotes = async (id) => {
-    try {
-      await axios.delete(`http://localhost:8000/notes/delete/${id}`)
-      setNotes(prevNotes => prevNotes.filter((note) => note._id !== id))
-    } catch (error) {
-      alert(error)
-    }
-
-
-
-  }
-
-
+  
 
   return (
     <div className='bg-black h-screen' >
