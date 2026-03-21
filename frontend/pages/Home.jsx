@@ -1,17 +1,16 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { useNavigate } from 'react-router'
 import Notes from '../components/Notes'
 import useNotes from '../customHooks/useNotes'
 
 const Home = () => {
 
-  const {notes, deleteNotes} = useNotes()
+  const { notes, deleteNotes } = useNotes()
   const navigate = useNavigate()
   const updateData = (title, description, id) => {
-    
+
     navigate(`/notes/update/${id}`, {
       state: {
         title: title,
@@ -21,8 +20,6 @@ const Home = () => {
       }
     })
   }
-
-  
 
   return (
     <div className='bg-black h-screen' >
